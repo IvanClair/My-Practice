@@ -1,10 +1,32 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.10"
+
+    ext {
+        kotlin_version = "1.4.10"
+
+        neededDependencies = [
+                // basic
+                "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+                'androidx.core:core-ktx:1.3.2',
+                // UI
+                'androidx.appcompat:appcompat:1.2.0',
+                'com.google.android.material:material:1.2.1',
+                'androidx.constraintlayout:constraintlayout:2.0.2'
+        ]
+
+        unitTest = ['junit:junit:4.13.1']
+
+        androidTest = [
+                'androidx.test.ext:junit:1.1.2',
+                'androidx.test.espresso:espresso-core:3.3.0'
+        ]
+    }
+
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
