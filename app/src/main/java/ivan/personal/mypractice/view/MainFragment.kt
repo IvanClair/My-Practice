@@ -1,11 +1,15 @@
 package ivan.personal.mypractice.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ivan.personal.mypractice.R
 import ivan.personal.mypractice.databinding.FragmentMainBinding
@@ -49,7 +53,13 @@ class MainFragment : Fragment() {
     // region Recycler view
 
     private fun initRecyclerView() {
-        binding.recyclerViewMain.adapter = adapter
+        binding.recyclerViewMain.apply {
+            val divider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+            addItemDecoration(divider)
+            adapter = this@MainFragment.adapter
+            this@MainFragment.adapter.listener = {
+            }
+        }
     }
 
     // endregion

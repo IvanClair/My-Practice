@@ -1,16 +1,23 @@
 package ivan.personal.mypractice.view
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.scopes.FragmentScoped
 import ivan.personal.mypractice.databinding.VhMainBinding
+import javax.inject.Inject
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+@FragmentScoped
+class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-    // data source
+    // Data source
     private val dataSource: List<String> by lazy {
         listOf("Material")
     }
+
+    // Click listener
+    var listener: ((Int) -> Unit)? = null
 
     // region Override
 
@@ -29,9 +36,10 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         holder: MainViewHolder,
         position: Int
     ) {
-        dataSource
-            .getOrNull(position)
-            ?.run { holder.bind(subjectName = this) }
+        holder.apply {
+            itemView.setOnClickListener { listener?.invoke(position) }
+            bind(subjectName = dataSource.getOrNull(position))
+        }
     }
 
     override fun getItemCount(): Int = dataSource.size
@@ -40,13 +48,13 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     // region View holder
 
-    class MainViewHolder(private val binding: VhMainBinding) :
+    inner class MainViewHolder(private val binding: VhMainBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Bind data to [VhMainBinding]
          */
-        fun bind(subjectName: String) {
+        fun bind(subjectName: String?) {
             binding.textViewSubjectName.text = subjectName
         }
     }

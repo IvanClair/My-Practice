@@ -1,8 +1,7 @@
 package ivan.personal.mypractice.router
 
-class MainRouter {
+import javax.inject.Inject
 
-    fun toA() {
+class MainRouter @Inject constructor() {
 
-    }
 }
