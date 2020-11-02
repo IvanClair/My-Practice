@@ -1,35 +1,35 @@
-package ivan.personal.mypractice.view
+package ivan.personal.feature_material_design.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IntDef
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.scopes.FragmentScoped
 import ivan.personal.core.setSafeOnClickListener
-import ivan.personal.mypractice.databinding.VhMainBinding
+import ivan.personal.feature_material_design.databinding.VhMaterialDesignListBinding
 import javax.inject.Inject
 
 @FragmentScoped
-class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MaterialDesignListAdapter @Inject constructor() :
+    RecyclerView.Adapter<MaterialDesignListAdapter.MaterialDesignListViewHolder>() {
 
     // Data source
     private val dataSource: List<String> by lazy {
-        listOf("Material Design")
+        listOf("Bottom app bars")
     }
 
-    // Click listener
+    // Click Listener
     var listener: ((Int) -> Unit)? = null
 
     // Constant
     companion object {
         @IntDef(
-            POSITION_MATERIAL_DESIGN
+            POSITION_BOTTOM_APP_BAR
         )
         @Retention(AnnotationRetention.SOURCE)
-        annotation class MainNavIndex
+        annotation class MaterialNavIndex
 
-        const val POSITION_MATERIAL_DESIGN = 0
+        const val POSITION_BOTTOM_APP_BAR = 0
     }
 
     // region Override
@@ -37,8 +37,8 @@ class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainV
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainViewHolder = MainViewHolder(
-        binding = VhMainBinding.inflate(
+    ): MaterialDesignListViewHolder = MaterialDesignListViewHolder(
+        binding = VhMaterialDesignListBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -46,7 +46,7 @@ class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainV
     )
 
     override fun onBindViewHolder(
-        holder: MainViewHolder,
+        holder: MaterialDesignListViewHolder,
         position: Int
     ) {
         holder.apply {
@@ -61,12 +61,9 @@ class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainV
 
     // region View holder
 
-    inner class MainViewHolder(private val binding: VhMainBinding) :
+    inner class MaterialDesignListViewHolder(private val binding: VhMaterialDesignListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        /**
-         * Bind data to [VhMainBinding]
-         */
         fun bind(subjectName: String?) {
             binding.textViewSubjectName.text = subjectName
         }

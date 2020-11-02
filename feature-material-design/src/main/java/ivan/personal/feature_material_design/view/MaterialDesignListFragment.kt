@@ -1,33 +1,31 @@
-package ivan.personal.mypractice.view
+package ivan.personal.feature_material_design.view
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import ivan.personal.mypractice.R
-import ivan.personal.mypractice.databinding.FragmentMainBinding
-import ivan.personal.mypractice.viewmodel.MainViewModel
+import ivan.personal.feature_material_design.R
+import ivan.personal.feature_material_design.databinding.FragmentMaterialDesignListBinding
+import ivan.personal.feature_material_design.viewmodel.MaterialDesignViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MaterialDesignListFragment : Fragment() {
 
     // View binding
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentMaterialDesignListBinding
 
     // View model
-    private val viewModel by navGraphViewModels<MainViewModel>(R.id.nav_main) { defaultViewModelProviderFactory }
+    private val viewModel by navGraphViewModels<MaterialDesignViewModel>(R.id.nav_material_design) { defaultViewModelProviderFactory }
 
-    // Adapter
+    // RecyclerView adapter
     @Inject
-    lateinit var adapter: MainAdapter
+    lateinit var adapter: MaterialDesignListAdapter
 
     // region Life cycle
 
@@ -36,7 +34,11 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentMaterialDesignListBinding.inflate(
+            inflater,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -50,12 +52,12 @@ class MainFragment : Fragment() {
 
     // endregion
 
-    // region Recycler view
+    // region Initial views
 
     private fun initRecyclerView() {
-        binding.recyclerViewMain.apply {
+        binding.recyclerViewMaterial.apply {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = this@MainFragment.adapter.apply {
+            adapter = this@MaterialDesignListFragment.adapter.apply {
                 listener = { viewModel.navigate(view = binding.root, position = it) }
             }
         }

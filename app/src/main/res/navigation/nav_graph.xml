@@ -5,9 +5,16 @@
     android:id="@+id/nav_main"
     app:startDestination="@id/mainFragment">
 
+    <include app:graph="@navigation/nav_material_design" />
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="ivan.personal.mypractice.view.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/to_material_design"
+            app:destination="@id/nav_material_design" />
+    </fragment>
 </navigation>
