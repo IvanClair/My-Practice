@@ -15,7 +15,7 @@ class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainV
 
     // Data source
     private val dataSource: List<String> by lazy {
-        listOf("Material Design")
+        listOf("Material Design", "Camera")
     }
 
     // Click listener
@@ -24,12 +24,14 @@ class MainAdapter @Inject constructor() : RecyclerView.Adapter<MainAdapter.MainV
     // Constant
     companion object {
         @IntDef(
-            POSITION_MATERIAL_DESIGN
+            POSITION_MATERIAL_DESIGN,
+            POSITION_CAMERA
         )
         @Retention(AnnotationRetention.SOURCE)
         annotation class MainNavIndex
 
         const val POSITION_MATERIAL_DESIGN = 0
+        const val POSITION_CAMERA = 1
     }
 
     // region Override

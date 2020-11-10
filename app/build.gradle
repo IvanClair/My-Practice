@@ -50,4 +50,5 @@ dependencies {
 
     implementation project(":core")
     implementation project(":feature-material-design")
+    implementation project(":feature-camera")
 }

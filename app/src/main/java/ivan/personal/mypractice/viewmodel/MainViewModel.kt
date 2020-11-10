@@ -19,6 +19,7 @@ class MainViewModel @ViewModelInject constructor(private val router: MainRouter)
     ) {
         when (position) {
             MainAdapter.POSITION_MATERIAL_DESIGN -> router.toMaterialDesign(view = view)
+            MainAdapter.POSITION_CAMERA -> router.toCamera(view = view)
         }
     }
 

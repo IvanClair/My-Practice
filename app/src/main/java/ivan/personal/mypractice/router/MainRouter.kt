@@ -13,4 +13,11 @@ class MainRouter @Inject constructor() {
     fun toMaterialDesign(view: View) {
         view.findNavController().navigate(MainFragmentDirections.toMaterialDesign())
     }
+
+    /**
+     * Navigate to camera graph
+     */
+    fun toCamera(view: View) {
+        view.findNavController().navigate(MainFragmentDirections.toCamera())
+    }
 }
