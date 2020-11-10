@@ -7,6 +7,7 @@ buildscript {
         hilt_version = '2.29.1-alpha'
         hilt_androidx_version = '1.0.0-alpha02'
         nav_version = '2.3.1'
+        camerax_version = '1.0.0-beta11'
 
         neededDependencies = [
                 // basic
@@ -22,6 +23,10 @@ buildscript {
                 'androidx.appcompat:appcompat:1.2.0',
                 'com.google.android.material:material:1.2.1',
                 'androidx.constraintlayout:constraintlayout:2.0.4',
+                // camera x
+                "androidx.camera:camera-camera2:$camerax_version",
+                "androidx.camera:camera-lifecycle:$camerax_version",
+                'androidx.camera:camera-view:1.0.0-alpha18'
         ]
 
         kaptAnnotation = [
