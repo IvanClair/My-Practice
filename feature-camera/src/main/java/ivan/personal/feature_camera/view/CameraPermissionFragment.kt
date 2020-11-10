@@ -26,6 +26,6 @@ class CameraPermissionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
     }
-    
+
     // endregion
 }
