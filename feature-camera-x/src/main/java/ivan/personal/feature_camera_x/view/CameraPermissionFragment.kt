@@ -44,10 +44,13 @@ class CameraPermissionFragment : Fragment() {
             createPermissionLauncher(permission = Manifest.permission.CAMERA) { updateViews(status = it) }
 
         // settings launcher
-        settingsLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                activity?.run { updateViews(status = checkPermissionStatus(permission = Manifest.permission.CAMERA)) }
+        settingsLauncher = createLauncherForResult {
+            activity?.run {
+                updateViews(
+                    status = checkPermissionStatus(permission = Manifest.permission.CAMERA)
+                )
             }
+        }
     }
 
     override fun onCreateView(

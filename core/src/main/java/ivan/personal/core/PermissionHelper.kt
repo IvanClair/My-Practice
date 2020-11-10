@@ -37,6 +37,9 @@ inline fun Fragment.createPermissionLauncher(
         }
     }
 
+/**
+ * Check [PermissionStatus] of the [permission]
+ */
 @PermissionStatus
 infix fun Activity.checkPermissionStatus(permission: String): Int =
     when {

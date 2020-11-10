@@ -4,11 +4,16 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
-import android.telephony.AccessNetworkConstants
-import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+
+/**
+ * Create start Activity for result launcher
+ */
+inline fun Fragment.createLauncherForResult(crossinline callback: (ActivityResult) -> Unit): ActivityResultLauncher<Intent> =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { callback.invoke(it) }
 
 /**
  * Create [Intent] to system settings
