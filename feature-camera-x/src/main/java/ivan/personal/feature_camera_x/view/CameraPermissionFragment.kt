@@ -65,7 +65,7 @@ class CameraPermissionFragment : Fragment() {
         // initial views
         initialViews()
         // start request permission
-        Handler(Looper.getMainLooper()).postDelayed({ launchPermissionRequest() }, 1000)
+        launchPermissionRequest()
     }
 
     // endregion
