@@ -1,7 +1,6 @@
 package ivan.personal.mypractice.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IntDef
 import androidx.recyclerview.widget.RecyclerView

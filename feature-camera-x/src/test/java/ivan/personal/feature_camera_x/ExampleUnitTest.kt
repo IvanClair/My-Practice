@@ -1,4 +1,4 @@
-package ivan.personal.feature_camera
+package ivan.personal.feature_camera_x
 
 import org.junit.Test
 

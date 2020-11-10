@@ -1,14 +1,15 @@
-package ivan.personal.feature_camera.view
+package ivan.personal.feature_camera_x.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ivan.personal.feature_camera.databinding.FragmentCameraPermissionBinding
+import ivan.personal.feature_camera_x.databinding.FragmentCameraPermissionBinding
 
 class CameraPermissionFragment : Fragment() {
 
+    // View binding
     private lateinit var binding: FragmentCameraPermissionBinding
 
     // region Life cycle
@@ -24,7 +25,6 @@ class CameraPermissionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     // endregion

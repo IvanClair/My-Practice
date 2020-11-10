@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
 
     <include app:graph="@navigation/nav_material_design" />
-    <include app:graph="@navigation/nav_camera" />
+    <include app:graph="@navigation/nav_camera_x" />
 
     <fragment
         android:id="@+id/mainFragment"
@@ -20,6 +20,6 @@
 
         <action
             android:id="@+id/to_camera"
-            app:destination="@id/nav_camera" />
+            app:destination="@id/nav_camera_x" />
     </fragment>
 </navigation>
