@@ -1,8 +1,10 @@
 package ivan.personal.feature_camera_x.viewmodel
 
 import android.content.Context
+import android.view.View
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
 import ivan.personal.core.CameraUtil
 import ivan.personal.core.PermissionHelper
 import java.util.jar.Manifest
@@ -26,6 +28,14 @@ class CameraViewModel @ViewModelInject constructor(
             context = context,
             permission = android.Manifest.permission.CAMERA
         )
+
+    // endregion
+
+    // region Navigation
+
+    fun navigateBack(view: View?) {
+        view?.findNavController()?.navigateUp()
+    }
 
     // endregion
 }

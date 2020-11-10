@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
+import ivan.personal.core.setSafeOnClickListener
 import ivan.personal.feature_camera_x.R
 import ivan.personal.feature_camera_x.databinding.FragmentCameraPermissionBinding
 import ivan.personal.feature_camera_x.viewmodel.CameraViewModel
@@ -36,6 +37,7 @@ class CameraPermissionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initMessage()
+        initCloseButton()
     }
 
     // endregion
@@ -62,6 +64,10 @@ class CameraPermissionFragment : Fragment() {
                 return
             }
         }
+    }
+
+    private fun initCloseButton() {
+        binding.buttonClose.setSafeOnClickListener { viewModel.navigateBack(view = it) }
     }
 
     // endregion
