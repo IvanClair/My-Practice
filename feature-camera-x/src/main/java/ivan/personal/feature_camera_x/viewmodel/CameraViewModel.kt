@@ -6,7 +6,6 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import ivan.personal.core.CameraUtil
-import ivan.personal.core.createSettingsIntent
 import ivan.personal.feature_camera_x.view.CameraPermissionFragmentDirections
 
 class CameraViewModel @ViewModelInject constructor(private val cameraUtil: CameraUtil) :
