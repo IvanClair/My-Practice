@@ -3,14 +3,16 @@ package ivan.personal.feature_camera_x.view
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,19 +30,23 @@ class CameraPermissionFragment : Fragment() {
     // View model
     private val viewModel by navGraphViewModels<CameraViewModel>(R.id.nav_camera_x) { defaultViewModelProviderFactory }
 
-    // Permission launcher
+    // Launcher
     private lateinit var cameraPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var settingsLauncher: ActivityResultLauncher<Intent>
 
     // region Life cycle
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        // permission launcher
         cameraPermissionLauncher =
-            (context as AppCompatActivity).createPermissionLauncher(permission = Manifest.permission.CAMERA) {
-                updateMessage(status = it)
-                updateGoToSettingButton(status = it)
-                updateProvidePermissionButton(status = it)
-                updateStartButton(status = it)
+            createPermissionLauncher(permission = Manifest.permission.CAMERA) { updateViews(status = it) }
+
+        // settings launcher
+        settingsLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                activity?.run { updateViews(status = checkPermissionStatus(permission = Manifest.permission.CAMERA)) }
             }
     }
 
@@ -56,18 +62,22 @@ class CameraPermissionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // initial views
-        initCloseButton()
-        initMessage()
-        initGoToSettingButton()
-        initProvidePermissionButton()
-        initStartButton()
+        initialViews()
         // start request permission
         Handler(Looper.getMainLooper()).postDelayed({ launchPermissionRequest() }, 1000)
     }
 
     // endregion
 
-    // region Views
+    // region Views - initial
+
+    private fun initialViews() {
+        initCloseButton()
+        initMessage()
+        initGoToSettingButton()
+        initProvidePermissionButton()
+        initStartButton()
+    }
 
     private fun initCloseButton() {
         binding.buttonClose.setSafeOnClickListener { viewModel.navigateBack(view = it) }
@@ -80,26 +90,10 @@ class CameraPermissionFragment : Fragment() {
             else "Checking camera permission ..."
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updateMessage(@PermissionStatus status: Int) {
-        binding.textViewMessage.text = when (status) {
-            PERMISSION_STATUS_RATIONALE -> "To try the feature, you have to tap the button below to provide camera permission"
-            PERMISSION_STATUS_DENIED -> "Since you denied the permission before, you have to activate camera permission in settings manually"
-            else -> "All good, you can start by taping the button below"
-        }
-    }
-
     private fun initGoToSettingButton() {
         binding.buttonGoToSetting.apply {
             visibility = View.GONE
-            setSafeOnClickListener { }
-        }
-    }
-
-    private fun updateGoToSettingButton(@PermissionStatus status: Int) {
-        binding.buttonGoToSetting.visibility = when (status) {
-            PERMISSION_STATUS_GRANTED, PERMISSION_STATUS_RATIONALE -> View.GONE
-            else -> View.VISIBLE
+            setSafeOnClickListener { settingsLauncher.launch(context.createSettingsIntent()) }
         }
     }
 
@@ -110,17 +104,44 @@ class CameraPermissionFragment : Fragment() {
         }
     }
 
-    private fun updateProvidePermissionButton(@PermissionStatus status: Int) {
-        binding.buttonProvidePermission.visibility = when (status) {
-            PERMISSION_STATUS_GRANTED, PERMISSION_STATUS_DENIED -> View.GONE
-            else -> View.VISIBLE
-        }
-    }
-
     private fun initStartButton() {
         binding.buttonStart.apply {
             visibility = View.GONE
             setSafeOnClickListener { }
+        }
+    }
+
+    // endregion
+
+    // region Views - update
+
+    private fun updateViews(@PermissionStatus status: Int) {
+        updateMessage(status = status)
+        updateGoToSettingButton(status = status)
+        updateProvidePermissionButton(status = status)
+        updateStartButton(status = status)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateMessage(@PermissionStatus status: Int) {
+        binding.textViewMessage.text = when (status) {
+            PERMISSION_STATUS_RATIONALE -> "To try the feature, you have to tap the button below to provide camera permission"
+            PERMISSION_STATUS_DENIED -> "Since you denied the permission before, you have to activate camera permission in settings manually"
+            else -> "All good, you can start by taping the button below"
+        }
+    }
+
+    private fun updateGoToSettingButton(@PermissionStatus status: Int) {
+        binding.buttonGoToSetting.visibility = when (status) {
+            PERMISSION_STATUS_GRANTED, PERMISSION_STATUS_RATIONALE -> View.GONE
+            else -> View.VISIBLE
+        }
+    }
+
+    private fun updateProvidePermissionButton(@PermissionStatus status: Int) {
+        binding.buttonProvidePermission.visibility = when (status) {
+            PERMISSION_STATUS_GRANTED, PERMISSION_STATUS_DENIED -> View.GONE
+            else -> View.VISIBLE
         }
     }
 
