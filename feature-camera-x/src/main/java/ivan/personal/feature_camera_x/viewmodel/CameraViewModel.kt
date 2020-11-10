@@ -1,17 +1,13 @@
 package ivan.personal.feature_camera_x.viewmodel
 
-import android.Manifest
 import android.content.Context
 import android.view.View
-import androidx.activity.result.ActivityResultLauncher
-import androidx.appcompat.app.AppCompatActivity
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import ivan.personal.core.CameraUtil
-import ivan.personal.core.PermissionStatus
-import ivan.personal.core.createPermissionLauncher
 import ivan.personal.core.createSettingsIntent
+import ivan.personal.feature_camera_x.view.CameraPermissionFragmentDirections
 
 class CameraViewModel @ViewModelInject constructor(private val cameraUtil: CameraUtil) :
     ViewModel() {
@@ -35,9 +31,11 @@ class CameraViewModel @ViewModelInject constructor(private val cameraUtil: Camer
         view?.findNavController()?.navigateUp()
     }
 
-    fun navigateToSettings(context: Context) {
-        val intent = context.createSettingsIntent()
-
+    /**
+     * Navigate to camera preview
+     */
+    fun navigateToCameraPreview(view: View?) {
+        view?.findNavController()?.navigate(CameraPermissionFragmentDirections.toCameraPreview())
     }
 
     // endregion

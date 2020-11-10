@@ -110,7 +110,7 @@ class CameraPermissionFragment : Fragment() {
     private fun initStartButton() {
         binding.buttonStart.apply {
             visibility = View.GONE
-            setSafeOnClickListener { }
+            setSafeOnClickListener { viewModel.navigateToCameraPreview(view = it) }
         }
     }
 

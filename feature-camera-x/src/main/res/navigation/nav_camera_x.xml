@@ -9,5 +9,16 @@
         android:id="@+id/cameraPermissionFragment"
         android:name="ivan.personal.feature_camera_x.view.CameraPermissionFragment"
         android:label="CameraPermissionFragment"
-        tools:layout="@layout/fragment_camera_permission" />
+        tools:layout="@layout/fragment_camera_permission">
+
+        <action
+            android:id="@+id/to_camera_preview"
+            app:destination="@id/cameraPreviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cameraPreviewFragment"
+        android:name="ivan.personal.feature_camera_x.view.CameraPreviewFragment"
+        android:label="CameraPreviewFragment"
+        tools:layout="@layout/fragment_camera_preview" />
 </navigation>
