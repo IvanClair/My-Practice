@@ -39,5 +39,3 @@ infix fun View.setSafeOnClickListener(onClick: (View?) -> Unit) {
     val safeClickListener = SafeOnClickListener { onClick.invoke(it) }
     setOnClickListener(safeClickListener)
 }
-
-// endregion

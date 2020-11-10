@@ -1,21 +1,19 @@
 package ivan.personal.feature_camera_x.viewmodel
 
+import android.Manifest
 import android.content.Context
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import ivan.personal.core.CameraUtil
-import ivan.personal.core.PermissionHelper
-import java.util.jar.Manifest
+import ivan.personal.core.PermissionStatus
+import ivan.personal.core.createPermissionLauncher
+import ivan.personal.core.createSettingsIntent
 
-class CameraViewModel @ViewModelInject constructor(
-    private val permissionHelper: PermissionHelper,
-    private val cameraUtil: CameraUtil
-) :
+class CameraViewModel @ViewModelInject constructor(private val cameraUtil: CameraUtil) :
     ViewModel() {
 
     // region Camera checking
@@ -26,15 +24,6 @@ class CameraViewModel @ViewModelInject constructor(
     fun hasFrontFacing(context: Context): Boolean =
         cameraUtil.hasFrontFacingCamera(context = context)
 
-    /**
-     * Check the status camera permission
-     */
-    fun checkCameraPermissionStatus(activity: AppCompatActivity): Int =
-        permissionHelper.checkPermissionStatus(
-            activity = activity,
-            permission = android.Manifest.permission.CAMERA
-        )
-
     // endregion
 
     // region Navigation
@@ -44,6 +33,11 @@ class CameraViewModel @ViewModelInject constructor(
      */
     fun navigateBack(view: View?) {
         view?.findNavController()?.navigateUp()
+    }
+
+    fun navigateToSettings(context: Context) {
+        val intent = context.createSettingsIntent()
+
     }
 
     // endregion
