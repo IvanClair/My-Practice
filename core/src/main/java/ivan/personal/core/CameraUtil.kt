@@ -11,5 +11,4 @@ class CameraUtil @Inject constructor() {
      */
     fun hasFrontFacingCamera(context: Context): Boolean =
         context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)
-
 }

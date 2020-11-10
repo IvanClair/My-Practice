@@ -2,7 +2,10 @@ package ivan.personal.feature_camera_x.viewmodel
 
 import android.content.Context
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import ivan.personal.core.CameraUtil
@@ -23,9 +26,12 @@ class CameraViewModel @ViewModelInject constructor(
     fun hasFrontFacing(context: Context): Boolean =
         cameraUtil.hasFrontFacingCamera(context = context)
 
-    fun isCameraPermissionGranted(context: Context): Boolean =
-        permissionHelper.isPermissionGranted(
-            context = context,
+    /**
+     * Check the status camera permission
+     */
+    fun checkCameraPermissionStatus(activity: AppCompatActivity): Int =
+        permissionHelper.checkPermissionStatus(
+            activity = activity,
             permission = android.Manifest.permission.CAMERA
         )
 
@@ -33,6 +39,9 @@ class CameraViewModel @ViewModelInject constructor(
 
     // region Navigation
 
+    /**
+     * Back to previous screen
+     */
     fun navigateBack(view: View?) {
         view?.findNavController()?.navigateUp()
     }
