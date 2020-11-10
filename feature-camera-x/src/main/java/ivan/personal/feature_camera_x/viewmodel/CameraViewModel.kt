@@ -25,7 +25,7 @@ class CameraViewModel @ViewModelInject constructor(private val cameraUtil: Camer
      * Get dir to save captured image
      */
     fun getDirForCapturedImage(activity: Activity): File =
-        cameraUtil.getOutputDirectorForCapturedImage(activity = activity)
+        cameraUtil.getOutputDirForCapturedImage(activity = activity)
 
     // endregion
 

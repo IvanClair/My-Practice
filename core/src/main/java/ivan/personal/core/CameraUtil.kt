@@ -20,7 +20,7 @@ class CameraUtil @Inject constructor() {
     /**
      * Get output directory for save captured image
      */
-    fun getOutputDirectorForCapturedImage(activity: Activity): File {
+    fun getOutputDirForCapturedImage(activity: Activity): File {
         val mediaDir = activity
             .externalMediaDirs
             ?.firstOrNull()
