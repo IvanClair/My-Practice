@@ -1,3 +1,4 @@
+include ':feature-camera'
 include ':core'
 include ':feature-material-design'
 include ':app'
