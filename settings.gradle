@@ -1,3 +1,4 @@
+include ':feature-animation'
 include ':resources'
 include ':feature-camera-x'
 include ':core'
